@@ -58,12 +58,13 @@ export default function(config) {
         path = '/' + path;
       }
 
+
       const matchingRoute = router.match('/' + method + path);
 
       if (!matchingRoute) return next();
 
       if (process.env.debug) {
-        console.log('Request: %s %s', req.method, path);
+        console.log('Request: %s %s', req.method, path, matchingRoute);
       }
 
       try {

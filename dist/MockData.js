@@ -7,14 +7,6 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports['default'] = MockData;
 
-var _chance = require('chance');
-
-var _chance2 = _interopRequireDefault(_chance);
-
-var _hoek = require('hoek');
-
-var _hoek2 = _interopRequireDefault(_hoek);
-
 var _ParsersParser = require('./Parsers/Parser');
 
 var _ParsersParser2 = _interopRequireDefault(_ParsersParser);
@@ -22,9 +14,16 @@ var _ParsersParser2 = _interopRequireDefault(_ParsersParser);
 var parser = new _ParsersParser2['default']();
 
 function MockData(definition) {
-  var schema = definition.schema;
+  var content = definition.content || {};
+  var schema = (content['application/json'] || {}).schema;
 
-  if (!schema) return null;
+  if (!schema) {
+    if (process.env.debug) {
+      console.warn('Schema not found');
+    }
+
+    return null;
+  }
 
   return parser.parse(schema);
 }
