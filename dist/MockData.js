@@ -14,8 +14,8 @@ var _ParsersParser2 = _interopRequireDefault(_ParsersParser);
 var parser = new _ParsersParser2['default']();
 
 function MockData(definition) {
-  var content = definition.content || {};
-  var schema = (content['application/json'] || {}).schema;
+  var def = definition.schema ? definition : definition.content['application/json'];
+  var schema = def.schema;
 
   if (!schema) {
     if (process.env.debug) {

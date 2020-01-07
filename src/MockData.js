@@ -4,8 +4,8 @@ import Parser from './Parsers/Parser'
 let parser = new Parser();
 
 export default function MockData(definition) {
-  const content = definition.content || {}
-  const schema = (content['application/json'] || {}).schema;
+  const def = definition.schema ? definition : definition.content['application/json']
+  const schema = def.schema;
 
 
   if (!schema) {
