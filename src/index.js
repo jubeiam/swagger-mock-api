@@ -58,7 +58,6 @@ export default function(config) {
         path = '/' + path;
       }
 
-
       const matchingRoute = router.match('/' + method + path);
 
       if (!matchingRoute) return next();
