@@ -85,7 +85,7 @@ exports['default'] = function (config) {
       if (!matchingRoute) return next();
 
       if (process.env.debug) {
-        console.log('Request: %s %s', req.method, path, matchingRoute);
+        console.log('Request: %s %s', req.method, path);
       }
 
       try {
