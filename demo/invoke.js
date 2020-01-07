@@ -3,6 +3,8 @@
 const path = require('path');
 const mockApi = require('../dist/index');
 
+const noop = () => {};
+
 const request = {
   method: 'get',
   url: '/pets/1'
@@ -10,7 +12,8 @@ const request = {
 
 const response = {
   setHeader: () => {},
-  write: console.log.bind(console)
+  write: console.log.bind(console),
+  end: noop
 };
 
 const next = () => {};

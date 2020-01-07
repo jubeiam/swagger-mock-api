@@ -1,14 +1,20 @@
 'use strict';
 
-import Chance from 'chance';
-import hoek from 'hoek';
 import Parser from './Parsers/Parser'
 let parser = new Parser();
 
 export default function MockData(definition) {
-  let schema = definition.schema;
+  const def = definition.schema ? definition : definition.content['application/json']
+  const schema = def.schema;
 
-  if (!schema) return null;
+
+  if (!schema) {
+    if (process.env.debug) {
+      console.warn('Schema not found');
+    }
+
+    return null;
+  }
 
   return parser.parse(schema);
 };
