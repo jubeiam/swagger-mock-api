@@ -1,20 +1,24 @@
-'use strict';
+"use strict";
 
-import Parser from './Parsers/Parser'
-let parser = new Parser();
+import Parser from "./Parsers/Parser";
+const parser = new Parser();
 
-export default function MockData(definition) {
-  const def = definition.schema ? definition : definition.content['application/json']
-  const schema = def.schema;
+export default function MockData(definition, responseCode) {
+  const def = definition.schema
+    ? definition
+    : (definition.content || {})["application/json"];
 
+  if (!def) {
+    return null;
+  }
 
-  if (!schema) {
+  if (!def.schema) {
     if (process.env.debug) {
-      console.warn('Schema not found');
+      console.warn("Schema not found");
     }
 
     return null;
   }
 
-  return parser.parse(schema);
-};
+  return parser.parse(def.schema);
+}
